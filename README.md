@@ -13,14 +13,17 @@ npm i http-proxy-buffer -S
 - http-proxy-middleware@0.18.0
 
 ```javascript
+const Koa = require('koa');
+const http = require('http');
 const k2c = require('koa2-connect')
-const proxyBuffer = require('http-proxy-buffer');
+const bodyParser = require('koa-body');
+const proxyBuffer = require('../');
 const httpProxy = require('http-proxy-middleware');
 
 // start proxy service
 const app_proxy = new Koa();
 const target = {
-    target: `http://127.0.0.1:${port}/extend-query`,
+    target: `http://127.0.0.1:3000/extend-query`,
 
     // extend query attribute
     query: {
@@ -32,14 +35,46 @@ const target = {
         type: 'body extend'
     }
 };
+// the "/proxy" path use proxy
 app_proxy.use(async function (ctx, next) {
-    // extend target
-    const _target = await proxyBuffer(ctx.req, target);
-    await k2c(httpProxy(_target))(ctx, next);
+    if (ctx.path === '/proxy') {
+        // extend target
+        const _target = await proxyBuffer(ctx.req, target);
+        await k2c(httpProxy(_target))(ctx, next);
+    } else {
+        await next();
+    }
 });
 
-app_proxy.listen(3000);
+app_proxy.use(bodyParser());
 
+app_proxy.use(async function (ctx) {
+    ctx.body = {
+        // path: /extend-query/proxy
+        path: ctx.path,
+        // query: { proxy: 'yes', extend: 'query extend' }
+        query: ctx.request.query,
+        // body: { request: 'yes', write: 'yes', type: 'body extend' }
+        body: ctx.request.body
+    };
+
+    // print the value
+    console.log(ctx.body);
+});
+
+// listen and request proxy service
+app_proxy.listen(3000, function () {
+    const postData = 'request=yes&write=yes';
+    const req = http.request('http://127.0.0.1:3000/proxy?proxy=yes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(postData)
+        }
+    });
+    req.write(postData);
+    req.end();
+});
 ```
 ## Features
 

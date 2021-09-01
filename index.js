@@ -18,9 +18,15 @@ module.exports = async function (req, target) {
     }
 
     // body部分的处理
-    if (target.body && Object.keys(target.body).length > 0 && req.headers['content-type']) {
+    if (target.body && Object.keys(target.body).length > 0) {
 
         target.headers = target.headers || {};
+
+        // default content-type
+        if (!req.headers['content-type']) {
+            req.headers['content-length'] = 0;
+            req.headers['content-type'] = 'application/json; charset=utf-8';
+        }
 
         const { type, parameters } = ContentType.parse(req);
 
