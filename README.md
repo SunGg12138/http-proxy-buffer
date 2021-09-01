@@ -56,3 +56,9 @@ Learn more by viewing test cases
 ```
 npm run test
 ```
+
+## License
+
+MIT License
+
+Copyright (c) 2021 sungg12138
