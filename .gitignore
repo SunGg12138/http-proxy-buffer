@@ -1,0 +1,17 @@
+*.bak
+*.iml
+*.log
+*.sublime-*
+*.un~
+
+.DS_Store
+.idea
+
+sftp-config.json
+yarn.lock
+package-lock.json
+
+coverage/
+node_modules/
+test/tmp/
+.vscode/
