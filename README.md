@@ -1,6 +1,6 @@
 # http-proxy-buffer
 
-Use the buffer attribute to expand http-proxy module, add query and body attributes
+Use the buffer attribute to extend http-proxy module, add query and body attributes
 
 ## Install
 
