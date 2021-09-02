@@ -81,7 +81,7 @@ app_proxy.listen(3000, function () {
 The content-type supported by the body attribute is: 
 
 - application/x-www-form-urlencoded
-- application/json
+- application/json, (only for object type data)
 - multipart/form-data
 
 ## Test
