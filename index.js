@@ -31,7 +31,6 @@ module.exports = async function (req, target) {
         const { type, parameters } = ContentType.parse(req);
 
         switch (type) {
-            // form类型
             case 'application/x-www-form-urlencoded':
                 await formBody(req, target);
                 break;
