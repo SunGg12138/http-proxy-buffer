@@ -1,3 +1,4 @@
+const query = require('./lib/query');
 const ContentType = require('content-type');
 const formBody = require('./lib/form_body');
 const jsonBody = require('./lib/json_body');
@@ -6,16 +7,7 @@ const multipartBody = require('./lib/multipart_body');
 module.exports = async function (req, target) {
 
     // query部分的处理
-    if (target.query) {
-        const search_params = new URLSearchParams(target.query);
-        const search_params_str = search_params.toString();
-        
-        if (req.url.includes('?')) {
-            req.url += '&' + search_params_str;
-        } else {
-            req.url += '?' + search_params_str;
-        }
-    }
+    if (target.query) query(req, target);
 
     // body部分的处理
     if (target.body && Object.keys(target.body).length > 0) {
