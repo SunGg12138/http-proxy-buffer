@@ -84,6 +84,10 @@ The content-type supported by the body attribute is:
 - application/json, (only for object type data)
 - multipart/form-data
 
+## Related npm packages
+
+[koa2-proxy-plus](https://github.com/SunGg12138/koa2-proxy-plus): koa2 proxy middleware
+
 ## Test
 
 Learn more by viewing test cases
