@@ -1,10 +1,16 @@
-const streamify = require('stream-array');
-const StreamConcat = require('stream-concat');
+import { Stream } from 'stream';
+import { IncomingMessage } from 'http';
+import streamify from 'stream-array';
+import StreamConcat from 'stream-concat';
+
+interface ContentTypeParameters {
+    boundary: string | undefined
+}
 
 /**
  * add params to multipart body
 */
-module.exports = async function (req, target, parameters) {
+export default async function (req: IncomingMessage, target: Target, parameters: ContentTypeParameters) {
 
     // content-length is required
     if (!req.headers['content-length']) return;
@@ -17,12 +23,12 @@ module.exports = async function (req, target, parameters) {
           MULTIPART_END_BUFFER = Buffer.from('--' + MULTIPART_BOUNDARY + '--');
 
     // collect buffers total byteLength
-    let buffer_total_length = 0;
+    let buffer_total_length: number = 0;
 
     for (let key in target.body) {
 
-        const name_buffer = Buffer.from(`name="${key}"\r\n\r\n`),
-              value_buffer = Buffer.from(target.body[key] + '\r\n');
+        const name_buffer: Buffer = Buffer.from(`name="${key}"\r\n\r\n`),
+              value_buffer: Buffer = Buffer.from(target.body[key] + '\r\n');
 
         buffer_total_length += MULTIPART_START_BUFFER.byteLength;
         buffer_total_length += MULTIPART_DISPOSITION_BUFFER.byteLength;
@@ -33,7 +39,7 @@ module.exports = async function (req, target, parameters) {
     }
 
     if (origin_content_length > 0) {
-        const stream = new StreamConcat([ streamify(search_params_buffers), req ]);
+        const stream: Stream = new StreamConcat([ streamify(search_params_buffers), req ]);
 
         target.buffer = stream;
         // set content-length
@@ -42,7 +48,9 @@ module.exports = async function (req, target, parameters) {
         // set end tag
         search_params_buffers.push(MULTIPART_END_BUFFER);
 
-        target.buffer = streamify(search_params_buffers);
+        const stream: Stream = streamify(search_params_buffers);
+
+        target.buffer = stream;
         target.headers['content-type'] = 'multipart/form-data; boundary=' + MULTIPART_BOUNDARY;
         // set content-length
         target.headers['content-length'] = buffer_total_length + MULTIPART_END_BUFFER.byteLength;
@@ -52,7 +60,7 @@ module.exports = async function (req, target, parameters) {
 /**
  * spawn multipart/form-data boundary
 */
-function spawnBoundary () {
+function spawnBoundary (): string {
     let boundary = '--------------------------';
     for (let i = 0; i < 24; i++) {
         boundary += Math.floor(Math.random() * 10).toString(16);

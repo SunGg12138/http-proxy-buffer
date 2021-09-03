@@ -2,9 +2,9 @@
   "name": "http-proxy-buffer",
   "version": "1.0.3",
   "description": "Use the buffer attribute to extend http-proxy module, add query and body attributes",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --timeout 999999 test/"
+    "test": "tsc && mocha --timeout 999999 test/"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@ const Koa = require('koa');
 const supertest = require('supertest');
 const { expect } = require('chai');
 const bodyParser = require('koa-body');
-const proxyBuffer = require('../');
+const proxyBuffer = require('../dist');
 const k2c = require('koa2-connect')
 const httpProxy = require('http-proxy-middleware');
 
