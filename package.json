@@ -1,6 +1,6 @@
 {
   "name": "http-proxy-buffer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Use the buffer attribute to extend http-proxy module, add query and body attributes",
   "main": "dist/index.js",
   "scripts": {
@@ -10,7 +10,12 @@
     "type": "git",
     "url": "https://github.com/SunGg12138/http-proxy-buffer.git"
   },
-  "keywords": [ "http-proxy-buffer", "http-proxy", "http-proxy-middleware", "http-proxy extend" ],
+  "keywords": [
+    "http-proxy-buffer",
+    "http-proxy",
+    "http-proxy-middleware",
+    "http-proxy extend"
+  ],
   "author": "sungg12138",
   "license": "MIT",
   "bugs": {

@@ -9,7 +9,7 @@ export = async function proxy (req: IncomingMessage, target: Target): Promise<Ta
 
     if (target.query) await query(req, target);
 
-    if (target.buffer || !target.body || Object.keys(target.body).length === 0) return target;
+    if (!target.body || Object.keys(target.body).length === 0) return target;
 
     // default content-type
     if (!req.headers['content-type']) {
