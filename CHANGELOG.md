@@ -16,3 +16,11 @@
 ## v1.0.3
 
 - query upgrade
+
+## v1.0.4
+
+- use typescript
+
+## v1.0.6
+
+- optional parameter typescript
