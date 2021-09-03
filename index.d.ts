@@ -1,4 +1,5 @@
 import { Stream } from 'stream';
+import { IncomingMessage } from 'http';
 
 interface Target {
     query: {
@@ -16,5 +17,5 @@ interface Target {
 }
 
 declare module 'http-proxy-buffer' {
-    export default function (target: Target): Target
+    export default function (req: IncomingMessage, target: Target): Target
 }
