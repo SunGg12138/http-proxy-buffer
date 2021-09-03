@@ -8,6 +8,9 @@ import StreamConcat from 'stream-concat';
 */
 export default async function (req: IncomingMessage, target: Target): Promise<void> {
 
+    target.body = target.body || {};
+    target.headers = target.headers || {};
+
     const search_params: URLSearchParams = new URLSearchParams(target.body);
     const search_params_str: string = search_params.toString();
     const has_content_length: boolean = !!req.headers['content-length'];

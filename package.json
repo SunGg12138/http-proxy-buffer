@@ -1,6 +1,6 @@
 {
   "name": "http-proxy-buffer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Use the buffer attribute to extend http-proxy module, add query and body attributes",
   "main": "dist/index.js",
   "scripts": {

@@ -6,6 +6,8 @@ import { IncomingMessage } from 'http';
 export default async function (req: IncomingMessage, target: Target): Promise<void> {
 
     if (!req.url) return;
+
+    target.query = target.query || {};
     
     const search_params: URLSearchParams = new URLSearchParams(target.query);
     const search_params_str: string = search_params.toString();

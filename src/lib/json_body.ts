@@ -8,6 +8,9 @@ import getStream from 'get-stream';
 */
 export default async function (req: IncomingMessage, target: Target): Promise<void> {
 
+    target.body = target.body || {};
+    target.headers = target.headers || {};
+
     const has_content_length: boolean = !!req.headers['content-length'];
     const origin_content_length: number = Number(req.headers['content-length']) || 0;
 

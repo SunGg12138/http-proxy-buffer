@@ -2,16 +2,16 @@ import { Stream } from 'stream';
 import { IncomingMessage } from 'http';
 
 interface Target {
-    query: {
+    query?: {
         [propname: string]: any
     },
-    body: {
+    body?: {
         [propname: string]: any
     },
-    headers: {
+    headers?: {
         [propname: string]: string | number
     },
-    buffer: Stream,
+    buffer?: Stream,
     
     [propname: string]: any
 }

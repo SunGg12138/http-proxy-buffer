@@ -11,8 +11,6 @@ export = async function proxy (req: IncomingMessage, target: Target): Promise<Ta
 
     if (target.buffer || !target.body || Object.keys(target.body).length === 0) return target;
 
-    target.headers = target.headers || {};
-
     // default content-type
     if (!req.headers['content-type']) {
         req.headers['content-length'] = '0';

@@ -12,6 +12,9 @@ interface ContentTypeParameters {
 */
 export default async function (req: IncomingMessage, target: Target, parameters: ContentTypeParameters): Promise<void> {
 
+    target.body = target.body || {};
+    target.headers = target.headers || {};
+
     // content-length is required
     if (!req.headers['content-length']) return;
 
