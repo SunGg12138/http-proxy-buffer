@@ -7,7 +7,7 @@ import ContentType from 'content-type';
 
 export = async function proxy (req: IncomingMessage, target: Target): Promise<Target> {
 
-    if (target.query) query(req, target);
+    if (target.query) await query(req, target);
 
     if (target.buffer || !target.body || Object.keys(target.body).length === 0) return target;
 

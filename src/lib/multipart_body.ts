@@ -10,7 +10,7 @@ interface ContentTypeParameters {
 /**
  * add params to multipart body
 */
-export default async function (req: IncomingMessage, target: Target, parameters: ContentTypeParameters) {
+export default async function (req: IncomingMessage, target: Target, parameters: ContentTypeParameters): Promise<void> {
 
     // content-length is required
     if (!req.headers['content-length']) return;

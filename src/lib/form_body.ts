@@ -6,7 +6,7 @@ import StreamConcat from 'stream-concat';
 /**
  * add params to form body
 */
-export default async function (req: IncomingMessage, target: Target) {
+export default async function (req: IncomingMessage, target: Target): Promise<void> {
 
     const search_params: URLSearchParams = new URLSearchParams(target.body);
     const search_params_str: string = search_params.toString();

@@ -6,7 +6,7 @@ import getStream from 'get-stream';
 /**
  * add params to json body
 */
-export default async function (req: IncomingMessage, target: Target) {
+export default async function (req: IncomingMessage, target: Target): Promise<void> {
 
     const has_content_length: boolean = !!req.headers['content-length'];
     const origin_content_length: number = Number(req.headers['content-length']) || 0;

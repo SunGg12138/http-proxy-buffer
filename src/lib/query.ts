@@ -3,7 +3,7 @@ import { IncomingMessage } from 'http';
 /**
  * add params to search params
 */
-export default function (req: IncomingMessage, target: Target): void {
+export default async function (req: IncomingMessage, target: Target): Promise<void> {
 
     if (!req.url) return;
     
