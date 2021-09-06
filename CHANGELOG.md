@@ -24,3 +24,7 @@
 ## v1.0.6
 
 - optional parameter typescript
+
+## v1.1.0
+
+- The value of query and body can be function

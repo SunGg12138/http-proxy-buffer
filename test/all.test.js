@@ -19,6 +19,7 @@ describe('http-proxy-extend test', function () {
             expect(ctx.request.query).to.be.an('object');
             expect(ctx.request.query.test).to.equal('extend query');
             expect(ctx.request.query.extend).to.equal('query');
+            expect(ctx.request.query.extend_2).to.equal('query_2');
             
             ctx.body = { code: 0 };
         });
@@ -29,7 +30,17 @@ describe('http-proxy-extend test', function () {
         const target = {
             target: `http://127.0.0.1:${port}/extend-query`,
             query: {
-                extend: 'query'
+                extend: 'query',
+                t1: null,
+                t2: false,
+                t3: undefined,
+                t_object: { a: 1, b: null, c: undefined },
+                array: [ '1', '2', null, undefined, false ],
+                extend_2: async function (req, target) {
+                    return new Promise(re => {
+                        re(target.query.extend + '_2');
+                    });
+                }
             }
         };
         app_proxy.use(async function (ctx, next) {
@@ -58,6 +69,7 @@ describe('http-proxy-extend test', function () {
             expect(ctx.request.query).to.be.an('object');
             expect(ctx.request.query.test).to.equal(undefined);
             expect(ctx.request.query.extend).to.equal('query');
+            expect(ctx.request.query.extend_2).to.equal('query_2');
             
             ctx.body = { code: 0 };
         });
@@ -68,7 +80,13 @@ describe('http-proxy-extend test', function () {
         const target = {
             target: `http://127.0.0.1:${port}/extend-query`,
             query: {
-                extend: 'query'
+                extend: 'query',
+
+                extend_2: async function (req, target) {
+                    return new Promise(re => {
+                        re(target.query.extend + '_2');
+                    });
+                }
             }
         };
         app_proxy.use(async function (ctx, next) {
@@ -95,6 +113,7 @@ describe('http-proxy-extend test', function () {
             expect(ctx.request.body).to.be.an('object');
             expect(ctx.request.body.test).to.equal('extend form body');
             expect(ctx.request.body.extend).to.equal('form-body');
+            expect(ctx.request.body.extend_2).to.equal('form-body_2');
             
             ctx.body = { code: 0 };
         });
@@ -105,7 +124,17 @@ describe('http-proxy-extend test', function () {
         const target = {
             target: `http://127.0.0.1:${port}/extend-form`,
             body: {
-                extend: 'form-body'
+                extend: 'form-body',
+                t1: null,
+                t2: false,
+                t3: undefined,
+                t_object: { a: 1, b: null, c: undefined },
+                array: [ '1', '2', null, undefined, false ],
+                extend_2: async function (req, target) {
+                    return new Promise(re => {
+                        re(target.body.extend + '_2');
+                    });
+                }
             }
         };
         app_proxy.use(async function (ctx, next) {
@@ -174,6 +203,7 @@ describe('http-proxy-extend test', function () {
             expect(ctx.request.body).to.be.an('object');
             expect(ctx.request.body.test).to.equal('extend json body');
             expect(ctx.request.body.extend).to.equal('json-body');
+            expect(ctx.request.body.extend_2).to.equal('json-body_2');
             
             ctx.body = { code: 0 };
         });
@@ -184,7 +214,17 @@ describe('http-proxy-extend test', function () {
         const target = {
             target: `http://127.0.0.1:${port}/extend-json`,
             body: {
-                extend: 'json-body'
+                extend: 'json-body',
+                t1: null,
+                t2: false,
+                t3: undefined,
+                t_object: { a: 1, b: null, c: undefined },
+                array: [ '1', '2', null, undefined, false ],
+                extend_2: async function (req, target) {
+                    return new Promise(re => {
+                        re(target.body.extend + '_2');
+                    });
+                }
             }
         };
         app_proxy.use(async function (ctx, next) {
@@ -253,6 +293,7 @@ describe('http-proxy-extend test', function () {
             expect(ctx.request.body).to.be.an('object');
             expect(ctx.request.body.test).to.equal('extend multipart body');
             expect(ctx.request.body.extend).to.equal('multipart-body');
+            expect(ctx.request.body.extend_2).to.equal('multipart-body_2');
             
             ctx.body = { code: 0 };
         });
@@ -264,6 +305,16 @@ describe('http-proxy-extend test', function () {
             target: `http://127.0.0.1:${port}/extend-multipart`,
             body: {
                 extend: 'multipart-body',
+                t1: null,
+                t2: false,
+                t3: undefined,
+                t_object: { a: 1, b: null, c: undefined },
+                array: [ '1', '2', null, undefined, false ],
+                extend_2: async function (req, target) {
+                    return new Promise(re => {
+                        re(target.body.extend + '_2');
+                    });
+                }
             }
         };
         app_proxy.use(async function (ctx, next) {

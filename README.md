@@ -27,12 +27,26 @@ const target = {
 
     // extend query attribute
     query: {
-        extend: 'query extend'
+        extend: 'query extend',
+
+        // the value is "query extend 2"
+        extend_2: async function (req, target) {
+            return new Promise(re => {
+                re(target.query.extend + ' 2');
+            });
+        }
     },
 
     // extend body attribute
     body: {
-        type: 'body extend'
+        type: 'body type',
+
+        // the value is "query extend 2"
+        extend_2: async function (req, target) {
+            return new Promise(re => {
+                re(target.query.extend + ' 2');
+            });
+        }
     }
 };
 // the "/proxy" path use proxy
@@ -52,9 +66,9 @@ app_proxy.use(async function (ctx) {
     ctx.body = {
         // path: /extend-query/proxy
         path: ctx.path,
-        // query: { proxy: 'yes', extend: 'query extend' }
+        // query: { proxy: 'yes', extend: 'query extend', extend_2: 'query extend 2' }
         query: ctx.request.query,
-        // body: { request: 'yes', write: 'yes', type: 'body extend' }
+        // body: { request: 'yes', write: 'yes', type: 'body extend', extend_2: 'query extend 2' }
         body: ctx.request.body
     };
 

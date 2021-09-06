@@ -29,9 +29,19 @@ export default async function (req: IncomingMessage, target: Target, parameters:
     let buffer_total_length: number = 0;
 
     for (let key in target.body) {
+        
+        let value = target.body[key];
+
+        if (typeof value === 'function') {
+            value = value(req, target);
+            // handle promise type
+            if (value instanceof Promise) {
+                value = await value;
+            }
+        }
 
         const name_buffer: Buffer = Buffer.from(`name="${key}"\r\n\r\n`),
-              value_buffer: Buffer = Buffer.from(target.body[key] + '\r\n');
+              value_buffer: Buffer = Buffer.from(value + '\r\n');
 
         buffer_total_length += MULTIPART_START_BUFFER.byteLength;
         buffer_total_length += MULTIPART_DISPOSITION_BUFFER.byteLength;
